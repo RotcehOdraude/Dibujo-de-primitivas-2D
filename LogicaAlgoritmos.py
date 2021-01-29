@@ -1,9 +1,21 @@
+import sys, os
 from PyQt5 import QtWidgets, QtGui, uic
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
 qt_creator_file = "ui_Algoritmos.ui"
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qt_creator_file)
+
+
+def resource_path(relative_path):
+    """ Get the absolute path to the resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
@@ -18,7 +30,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setWindowTitle("Dibujo de primitivas en 2D")
-        self.setWindowIcon(QtGui.QIcon("icono.png"))
+        self.setWindowIcon(QtGui.QIcon(resource_path("icono.ico")))
 
         ## Variables 
         self.dda_datos_input = [(0,1),(0,1)]
