@@ -1,21 +1,16 @@
-import sys, os
-from PyQt5 import QtWidgets, QtGui, uic
+from PyQt5 import QtWidgets,QtCore,QtGui,uic
+import sys
+import resources
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
-qt_creator_file = "ui_Algoritmos.ui"
-Ui_MainWindow, QtBaseClass = uic.loadUiType(qt_creator_file)
-
-
-def resource_path(relative_path):
-    """ Get the absolute path to the resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
+try:
+    # Include in try/except block if you're also targeting Mac/Linux
+    from PyQt5.QtWinExtras import QtWin
+    myappid = 'com.RotcehOdraude.Github.Algoritmos'
+    QtWin.setCurrentProcessExplicitAppUserModelID(myappid)    
+except ImportError:
+    pass
 
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
@@ -24,13 +19,14 @@ class MplCanvas(FigureCanvasQTAgg):
         super(MplCanvas, self).__init__(fig)
 
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self):
-        QtWidgets.QMainWindow.__init__(self)
-        Ui_MainWindow.__init__(self)
-        self.setupUi(self)
-        self.setWindowTitle("Dibujo de primitivas en 2D")
-        self.setWindowIcon(QtGui.QIcon(resource_path("icono.ico")))
+class MainWindow(QtWidgets.QMainWindow):
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
+        # Carga de la UI
+        fileh = QtCore.QFile(':/ui/mainwindow.ui')
+        fileh.open(QtCore.QFile.ReadOnly)
+        uic.loadUi(fileh, self)
+        fileh.close()
 
         ## Variables 
         self.dda_datos_input = [(0,1),(0,1)]
@@ -101,17 +97,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.GraficaMatplot.addWidget(self.sc)
         
 
-
-
-        
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon(':/icons/icono.ico'))
+    main = MainWindow()
+    main.show()
+    sys.exit(app.exec_())
 
     
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec_()
+
+
 
     
