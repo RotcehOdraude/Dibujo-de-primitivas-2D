@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>945</width>
-    <height>570</height>
+    <width>998</width>
+    <height>648</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -156,7 +156,14 @@
            </widget>
           </item>
           <item row="10" column="0" colspan="2">
-           <widget class="QTableView" name="tablaDatos"/>
+           <widget class="QTableView" name="tablaDatos">
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>80</number>
+            </attribute>
+           </widget>
           </item>
          </layout>
         </item>
@@ -198,7 +205,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>945</width>
+     <width>998</width>
      <height>26</height>
     </rect>
    </property>

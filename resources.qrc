@@ -1,9 +1,9 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="ui">
-        <file alias="mainwindow.ui">ui_Algoritmos.ui</file>
+        <file alias="mainwindow.ui">recursos/ui_Algoritmos.ui</file>
     </qresource>
     <qresource prefix="icons">
-        <file alias="icono.ico">icono.ico</file>
+        <file alias="icono.ico">recursos/icono.ico</file>
     </qresource>
 </RCC>
